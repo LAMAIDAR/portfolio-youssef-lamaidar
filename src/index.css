@@ -20,6 +20,7 @@
   -moz-user-select: none;
   --accentColor: #c2a4ff;
   --backgroundColor: #0b080c;
+  --surfaceColor: rgba(255, 255, 255, 0.06);
   --vh: 100vh;
   --vh: 100svh;
 }
@@ -58,7 +59,10 @@ main {
 body {
   margin: 0;
   height: auto;
-  background-color: #000;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(116, 72, 255, 0.16), transparent 28rem),
+    radial-gradient(circle at 88% 72%, rgba(218, 112, 255, 0.1), transparent 30rem),
+    var(--backgroundColor);
   flex-grow: 1;
   --cWidth: calc(100% - 30px);
   --cMaxWidth: 1920px;
@@ -68,6 +72,11 @@ body {
 .main-body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+::selection {
+  color: #0b080c;
+  background: var(--accentColor);
 }
 
 .container-main {

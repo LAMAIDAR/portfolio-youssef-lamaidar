@@ -6,11 +6,15 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  variant?: string;
 }
 
 const WorkImage = (props: Props) => {
   const [isVideo, setIsVideo] = useState(false);
   const [video, setVideo] = useState("");
+  const [imageAvailable, setImageAvailable] = useState(
+    !props.image.includes("placeholder")
+  );
   const handleMouseEnter = async () => {
     if (props.video) {
       setIsVideo(true);
@@ -36,7 +40,28 @@ const WorkImage = (props: Props) => {
             <MdArrowOutward />
           </div>
         )}
-        <img src={props.image} alt={props.alt} />
+        {imageAvailable ? (
+          <img
+            src={props.image}
+            alt={props.alt}
+            onError={() => setImageAvailable(false)}
+          />
+        ) : (
+          <div
+            className={`work-image-fallback project-visual project-visual-${props.variant ?? "default"}`}
+            aria-label={props.alt}
+          >
+            <div className="project-visual-icon">
+              {props.variant === "security" && "◈"}
+              {props.variant === "health" && "+"}
+              {props.variant === "java" && "J"}
+              {props.variant === "web" && "</>"}
+              {props.variant === "assembly" && "6809"}
+              {props.variant === "network" && "⌁"}
+            </div>
+            <small>{props.alt}</small>
+          </div>
+        )}
         {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
       </a>
     </div>
